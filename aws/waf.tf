@@ -49,7 +49,7 @@ resource "aws_wafv2_web_acl" "web_acl" {
         }
         text_transformation {
           priority = 1
-          type     = "ESCAPE_SEQUENCE"  # Processes escape sequences
+          type     = "ESCAPE_SEQ_DECODE"  # Processes escape sequences
         }
       }
     }

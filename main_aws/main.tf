@@ -1,17 +1,18 @@
-# Initialize terraform for aws
+
+provider "aws" {
+  region = "us-east-1"
+  profile = "mis" #MUST MATCH PROFILE NAME IN AWS credentials file
+}
+
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.28.0" #TODO pick version of aws provider
+      version = ">= 3.0" #TODO pick version of aws provider
     }
   }
 }
 
-provider "aws" {
-  region = var.region
-  profile = "jake" #MUST MATCH PROFILE NAME IN AWS credentials file
-}
 
 module "aws_module" {
   source = "../aws"
@@ -32,7 +33,7 @@ module "aws_module" {
   bucket_name = "my-elb-logs-bucket"
   db_name = "default_username"
   key_pair_name = "my-key-pair"
-  db_pass = var.db_pass
+  db_pass = "default"
   waf_rate_limit = 1000
   ssh_ip_address = ["0.0.0.0/0"] # Add your ip address here
 }
