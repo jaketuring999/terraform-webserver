@@ -1,17 +1,7 @@
 
-# Create s3 bucket for webserver
-#resource "aws_s3_bucket" "webserver_s3" {
-#  bucket = "webserver-s3" # Ensure this name is globally unique
-#
-#  tags = {
-#    Name = "webserver_s3"
-#  }
-#}
-
 
 resource "aws_s3_bucket" "elb_logs" {
-  bucket = "my-elb-logs-bucket" # Ensure this name is globally unique
-#  acl    = "log-delivery-write"  # Allows the ELB service to write logs
+  bucket = var.bucket_name # Ensure this name is globally unique
 
   tags = {
     Name = "elb_logs"

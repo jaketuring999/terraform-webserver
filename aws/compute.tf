@@ -1,7 +1,7 @@
 # Create ELB
 resource "aws_elb" "web_elb" {
-  name = "web_elb"
-  availability_zones = ["us-east-1a", "us-east-1b"] #TODO pick availability zones
+  name = "web-elb"
+  availability_zones = var.availability_zones
   security_groups = [aws_security_group.elb_sg.id]
 
   listener {
@@ -17,12 +17,12 @@ resource "aws_elb" "web_elb" {
     interval = 60
   }
 
-  health_check { #TODO pick health check
+  health_check {
     healthy_threshold   = 2
     interval            = 30
     target              = "HTTP:80/"
     timeout             = 3
-    unhealthy_threshold = 2
+    unhealthy_threshold = 3
   }
 
   tags = {
@@ -33,9 +33,11 @@ resource "aws_elb" "web_elb" {
 # Define launch configuration
 resource "aws_launch_configuration" "web_config" {
   name_prefix   = "web_config"
-  image_id      = "" #TODO pick image id
-  instance_type = "t2.micro" #TODO pick instance type
+  image_id      = var.ami #Ubuntu Server 22.04 LTS (Free tier eligible)
+  instance_type = var.instance_type # t2.micro is within the AWS free tier
   security_groups = [aws_security_group.web_sg.id]
+  # Key pair name
+  key_name = var.key_pair_name
   lifecycle {
     create_before_destroy = true
   }
@@ -87,9 +89,9 @@ resource "aws_launch_configuration" "web_config" {
 resource "aws_autoscaling_group" "web_asg" {
   launch_configuration = aws_launch_configuration.web_config.id
   vpc_zone_identifier  = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
-  min_size = 2
-  max_size = 5
-  desired_capacity = 3
+  min_size = var.min_elb_capacity
+  max_size = var.max_elb_capacity
+  desired_capacity = var.desired_elb_capacity
   health_check_type = "ELB"
   health_check_grace_period = 300
   force_delete = true

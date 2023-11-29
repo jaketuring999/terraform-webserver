@@ -2,8 +2,8 @@
 resource "aws_elasticache_cluster" "elasticache_cluster" {
   cluster_id           = "cache-cluster"
   engine               = "redis"
-  node_type            = "cache.t2.micro"
-  num_cache_nodes      = 1
+  node_type            = var.elasti_cache_instance_type
+  num_cache_nodes      = var.num_cache_nodes
   parameter_group_name = "default.redis3.2"
   engine_version       = "3.2.10"
   port                 = 6379
@@ -24,7 +24,7 @@ resource "aws_elasticache_subnet_group" "elasticache_subnet_group" {
 resource "aws_subnet" "elasticache_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.5.0/24"
-  availability_zone = "us-west-2c"  # Choose an appropriate AZ
+  availability_zone = var.availability_zones[0]
 
   tags = {
     Name = "elasticache-subnet"

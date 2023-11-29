@@ -3,7 +3,6 @@
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "db-subnet-group"
   subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
-
   tags = {
     Name = "db-subnet-group"
   }
@@ -11,14 +10,14 @@ resource "aws_db_subnet_group" "db_subnet_group" {
 
 # RDS instance (relational database)
 resource "aws_db_instance" "rds_db_instance" {
-  allocated_storage    = 20 #TODO pick allocated storage
+  allocated_storage    = var.database_storage
   storage_type         = "gp2"
   engine               = "mysql"
   engine_version       = "8.0"
-  instance_class       = "db.t2.micro"
-  backup_retention_period = 7
-  username             = "user" #TODO credential management for RDS
-  password             = "password" #TODO credential management for RDS
+  instance_class       = var.db_instance_type
+  backup_retention_period = var.backup_retention_period
+  username             = var.database_user
+  password             = var.db_pass
   parameter_group_name = "default.mysql8.0"
   db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.db_sg.id]

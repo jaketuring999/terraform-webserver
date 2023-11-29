@@ -50,6 +50,13 @@ resource "aws_security_group" "web_sg" {
     security_groups = [aws_security_group.elb_sg.id]
   }
 
+  # Inbound rule for SSH access
+  ingress {
+    from_port   = 22       # SSH port
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.ssh_ip_address  # Replace with your IP address
+  }
   # Outbound rule to allow all outbound traffic
   egress {
     from_port   = 0
