@@ -34,7 +34,7 @@ module "aws_module" {
   backup_retention_period = 7 # Replace with your backup retention period
   num_cache_nodes = 1 # Replace with your number of cache nodes
   availability_zones = ["us-east-1a", "us-east-1b"] # Replace with your availability zones
-  bucket_name = "my-elb-logs-bucket" # Replace with your bucket name
+  bucket_name = "my-elb-logs-bucket" # Replace with your bucket name **MUST BE globally UNIQUE**
   db_name = "default_username" # Replace with your database name
   db_pass = var.db_pass # Replace with your database password
   key_pair_name = "my-key-pair" # Replace with your key pair name
