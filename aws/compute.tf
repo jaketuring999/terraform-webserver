@@ -24,7 +24,7 @@ resource "aws_elb" "web_elb" {
     timeout             = 3
     unhealthy_threshold = 3
   }
-
+  depends_on = [aws_vpc.main, aws_security_group.elb_sg]
   tags = {
     Name = "web_elb"
   }
@@ -33,8 +33,8 @@ resource "aws_elb" "web_elb" {
 # Define launch configuration
 resource "aws_launch_configuration" "web_config" {
   name_prefix   = "web_config"
-  image_id      = var.ami #Ubuntu Server 22.04 LTS (Free tier eligible)
-  instance_type = var.instance_type # t2.micro is within the AWS free tier
+  image_id      = var.ami
+  instance_type = var.instance_type
   security_groups = [aws_security_group.web_sg.id]
   # Key pair name
   key_name = aws_key_pair.generated_key.key_name
