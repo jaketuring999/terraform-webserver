@@ -30,7 +30,7 @@ module "aws_module" {
   min_elb_capacity = 2 # Replace with your min capacity
   max_elb_capacity = 5 # Replace with your max capacity
   desired_elb_capacity = 3 # Replace with your desired capacity
-  database_storage = 20 # Replace with your database storage
+  database_storage = 10 # Replace with your database storage
   backup_retention_period = 7 # Replace with your backup retention period
   num_cache_nodes = 1 # Replace with your number of cache nodes
   availability_zones = ["us-east-1a", "us-east-1b"] # Replace with your availability zones
