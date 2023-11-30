@@ -29,6 +29,7 @@ variable "region" {
   default = "us-east-1"
 }
 
+
 variable "db_name" {
   type = string
   default = "webserverdb"
@@ -37,7 +38,10 @@ variable "domain" {
   type = string
   default = "example.com"
 }
-
+variable "db_pass" {
+  type = string
+  sensitive = true
+}
 variable "sub_domain" {
   type = string
   default = "www"

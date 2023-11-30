@@ -17,6 +17,7 @@ variable "db_pass" {
   type = string
   sensitive = true
 }
+
 module "aws_module" {
   source = "../aws"
   region = "us-east-1" # Replace with your region
@@ -35,7 +36,7 @@ module "aws_module" {
   availability_zones = ["us-east-1a", "us-east-1b"] # Replace with your availability zones
   bucket_name = "my-elb-logs-bucket" # Replace with your bucket name
   db_name = "default_username" # Replace with your database name
-  db_pass = var.db_pass
+  db_pass = var.db_pass # Replace with your database password
   key_pair_name = "my-key-pair" # Replace with your key pair name
   waf_rate_limit = 1000 # Replace with your rate limit
   ssh_ip_address = ["0.0.0.0/0"] # Add your ip address here
