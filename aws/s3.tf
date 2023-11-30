@@ -3,7 +3,6 @@
 resource "aws_s3_bucket" "elb_logs" {
   bucket = var.bucket_name # Ensure this name is globally unique
   # Pick zone
-  region = var.region
   tags = {
     Name = "elb_logs"
   }

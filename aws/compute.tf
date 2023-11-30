@@ -37,7 +37,7 @@ resource "aws_launch_configuration" "web_config" {
   instance_type = var.instance_type # t2.micro is within the AWS free tier
   security_groups = [aws_security_group.web_sg.id]
   # Key pair name
-  key_name = var.key_pair_name
+  key_name = aws_key_pair.generated_key.key_name
   lifecycle {
     create_before_destroy = true
   }
