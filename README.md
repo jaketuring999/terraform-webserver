@@ -1,5 +1,5 @@
 # terraform-webserver
-Terraform web server infrastructure for AWS, DO, &amp; Azure
+Terraform web server infrastructure for AWS
 
 # Terraform Web Server Infrastructure
 ![AWS Architecture Diagram.png](AWS%20Architecture%20Diagram.png)
